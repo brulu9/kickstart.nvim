@@ -655,6 +655,14 @@ require('lazy').setup({
         },
       }
 
+      -- toggle inline diagnostics (virtual_text)
+      local _diagnostics_virtual_text = true
+      vim.keymap.set('n', '<leader>td', function()
+        _diagnostics_virtual_text = not _diagnostics_virtual_text
+        vim.diagnostic.config { virtual_text = _diagnostics_virtual_text }
+        vim.notify('Diagnostics inline text: ' .. tostring(_diagnostics_virtual_text))
+      end, { desc = '[T]oggle inline [D]iagnostics' })
+
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
       --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -683,6 +691,24 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
+        texlab = {
+          settings = {
+            texlab = {
+              diagnostics = {
+                -- Filter out unwanted diagnostics/warnings for LaTeX
+                ignoredPatterns = {
+                  'LaTeX hooks Warning',
+                  'Underfull',
+                  'Overfull',
+                  'LaTeX Warning: .+ float specifier changed to',
+                  'Package siunitx Warning: Detected the "physics" package:',
+                  'Package hyperref Warning: Token not allowed in a PDF string',
+                  'Fatal error occurred, no output PDF file produced!',
+                },
+              },
+            },
+          },
+        },
 
         lua_ls = {
           -- cmd = { ... },
@@ -799,12 +825,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
