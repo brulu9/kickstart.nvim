@@ -18,6 +18,9 @@ return {
         'Package hyperref Warning: Token not allowed in a PDF string',
         'Fatal error occurred, no output PDF file produced!',
       }
+
+      vim.g.vimtex_format_enabled = 1
+      vim.g.vimtex_format_indent_enabled = 1
     end,
   },
 }
