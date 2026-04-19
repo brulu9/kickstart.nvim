@@ -3,8 +3,9 @@ return {
     'lervag/vimtex',
     lazy = false,
     init = function()
+      --vim.g.vimtex_format_enabled = 0
       vim.g.vimtex_view_method = 'zathura'
-
+      --vim.g.vimtex_format_method = 'tex-fmt'
       -- Don't open quickfix for warning messages if no errors are present
       vim.g.vimtex_quickfix_open_on_warning = 0
 
